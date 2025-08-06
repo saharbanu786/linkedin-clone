@@ -9,10 +9,12 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',
+    'https://linkedin-clone-rho-lemon.vercel.app',
     'https://linkedin-clone-hmzc4vxup-saharbanu-as-projects.vercel.app'
   ],
   credentials: true
 }));
+
 
 
 // ✅ Increase JSON payload limit for safety
