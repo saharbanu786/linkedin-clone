@@ -1,13 +1,15 @@
 import axios from 'axios';
 
+// Use the deployed backend URL for production, localhost for development
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_BASE || 'http://localhost:5000/api',
 });
 
+// Attach token to every request
 API.interceptors.request.use((req) => {
-  const token = localStorage.getItem('token'); // or 'authToken' if that's what you saved
+  const token = localStorage.getItem('token'); // Adjust if you use a different key
   if (token) {
-    req.headers['x-auth-token'] = token; // ✅ backend expects this exact header
+    req.headers['x-auth-token'] = token; // ✅ matches backend expectation
   }
   return req;
 });
