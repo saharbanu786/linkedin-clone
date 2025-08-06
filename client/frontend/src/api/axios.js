@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Use the deployed backend URL for production, localhost for development
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE || 'http://localhost:5000/api',
+  baseURL: process.env.VITE_API_BASE || 'http://localhost:5000/api',
 });
 
 // Attach token to every request
