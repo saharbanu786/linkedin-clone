@@ -7,9 +7,13 @@ const app = express();
 
 // ✅ Allow your Vite frontend
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: [
+    'http://localhost:5173',
+    'https://linkedin-clone-hmzc4vxup-saharbanu-as-projects.vercel.app'
+  ],
   credentials: true
 }));
+
 
 // ✅ Increase JSON payload limit for safety
 app.use(express.json({ limit: '10mb' })); // Handles large JSON bodies if needed
