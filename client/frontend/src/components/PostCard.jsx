@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API from '../api/axios';
 import './PostCard.css';
 
 const PostCard = ({ post, onDelete, onUpdate }) => {
@@ -44,26 +45,19 @@ const handleDelete = async () => {
       return;
     }
 
-    const res = await fetch(`/api/posts/${post._id}`, {
-      method: 'DELETE',
+    const res = await API.delete(`/posts/${post._id}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token // ✅ Correct backend header
+        'x-auth-token': token
       }
     });
 
-     if (res.ok) {
-      // ✅ Update localStorage so Home syncs instantly
+    if (res.status === 200) {
       const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
       const updatedPosts = savedPosts.filter(
         p => p.id !== post._id && p._id !== post._id
       );
       localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
-      // ✅ Trigger a storage event manually (works in same tab)
       window.dispatchEvent(new Event('storage'));
-
-      // ✅ Also update parent component (Profile)
       onDelete(post._id);
     } else {
       console.warn('Failed to delete post. Status:', res.status);
