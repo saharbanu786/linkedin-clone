@@ -33,6 +33,9 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/posts', require('./routes/posts')); // posts route will use multer
 
+app.get('/', (req, res) => {
+  res.send('🚀 LinkedIn Clone Backend is running');
+});
 // ✅ Server start
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
